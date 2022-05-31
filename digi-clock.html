@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        @font-face {
+            font-family: digital-7;
+            src: url(./digital-7.ttf);
+        }
+
+        body {
+            object-fit: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            transition: 0.5s;
+        }
+
+        .cbg {
+            background: rgb(0, 0, 0, 65%);
+            padding: 20px;
+        }
+
+        .clock {
+            color: white;
+            font-family: digital-7;
+            font-size: 60px;
+            padding: 10px 20px;
+            min-width: 270px;
+            text-align: center;
+            border: 2px solid white;
+            display: flex;
+        }
+        .box {
+            min-width:70px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cbg">
+        <div class="clock">
+            <div class="box hours"></div>:
+            <div class="box minutes"></div>: 
+            <div class="box seconds"></div> 
+            <div class="box am"></div> 
+        </div>
+    </div>
+    </div>
+
+
+
+</body>
+
+<script>
+    setInterval(digiClock, 1000);
+
+    function digiClock() {
+        let date = new Date();
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
+        let outputhours = document.getElementsByClassName('hours')[0];
+        let outputminutes = document.getElementsByClassName('minutes')[0];
+        let outputseconds = document.getElementsByClassName('seconds')[0];
+        let outputam = document.getElementsByClassName('am')[0];
+
+        //theme change 
+        if (hours > 6 && hours < 12) {
+            morning();
+        } else if (hours < 16) {
+            afternoon();
+        } else if (hours < 20) {
+            evening();
+        } else {
+            night();
+        }
+
+
+        pm_or_am = hours < 12 ? pm_or_am = 'AM' : pm_or_am = 'PM';
+
+        hours = hours < 12 ? hours : hours % 12;
+
+        hours = hours < 10 ? hours = '0' + hours : hours;
+
+        minutes = minutes < 10 ? minutes = '0' + minutes : minutes;
+
+        seconds = seconds < 10 ? seconds = '0' + seconds : seconds;
+
+
+        outputhours.innerHTML = `${hours}`;
+        outputminutes.innerHTML = `${minutes}`;
+        outputseconds.innerHTML = `${seconds}`;
+        outputam.innerHTML = `${pm_or_am}`;
+    }
+
+    function morning() {
+        document.getElementsByTagName('body')[0].style.background = `url('./img/1.jpg') no-repeat`;
+        document.getElementsByTagName('body')[0].style.backgroundSize = `100% 100%`;
+    }
+
+    function afternoon() {
+        document.getElementsByTagName('body')[0].style.background = `url('./img/2.jpg') no-repeat`;
+        document.getElementsByTagName('body')[0].style.backgroundSize = `100% 100%`;
+    }
+
+    function evening() {
+        document.getElementsByTagName('body')[0].style.background = `url('./img/3.jpg') no-repeat`;
+        document.getElementsByTagName('body')[0].style.backgroundSize = `100% 100%`;
+    }
+
+    function night() {
+        document.getElementsByTagName('body')[0].style.background = `url('./img/4.jpg') no-repeat`;
+        document.getElementsByTagName('body')[0].style.backgroundSize = `100% 100%`;
+    }
+
+    digiClock();
+</script>
+
+</html>
